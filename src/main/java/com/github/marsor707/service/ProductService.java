@@ -1,6 +1,7 @@
 package com.github.marsor707.service;
 
 import com.github.marsor707.dataobject.ProductInfo;
+import com.github.marsor707.dto.CartDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,7 +27,9 @@ public interface ProductService {
 
     ProductInfo save(ProductInfo productInfo);
 
-    // TODO: 2017/12/2 加库存
+    // 加库存
+    void increaseStock(List<CartDTO> cartDTOList);
 
-    // TODO: 2017/12/2 减库存
+    // 减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 }
