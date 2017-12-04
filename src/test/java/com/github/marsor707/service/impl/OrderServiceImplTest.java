@@ -2,6 +2,7 @@ package com.github.marsor707.service.impl;
 
 import com.github.marsor707.dataobject.OrderDetail;
 import com.github.marsor707.dto.OrderDTO;
+import com.github.marsor707.enums.OrderStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -73,6 +74,9 @@ public class OrderServiceImplTest {
 
     @Test
     public void cancel() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO result = orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrderStatus());
     }
 
     @Test
