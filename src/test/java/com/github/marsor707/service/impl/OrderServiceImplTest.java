@@ -3,6 +3,7 @@ package com.github.marsor707.service.impl;
 import com.github.marsor707.dataobject.OrderDetail;
 import com.github.marsor707.dto.OrderDTO;
 import com.github.marsor707.enums.OrderStatusEnum;
+import com.github.marsor707.enums.PayStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -81,10 +82,16 @@ public class OrderServiceImplTest {
 
     @Test
     public void finish() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
     }
 
     @Test
     public void paid() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO result = orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), result.getPayStatus());
     }
 
 }
