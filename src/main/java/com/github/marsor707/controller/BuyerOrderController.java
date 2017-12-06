@@ -6,6 +6,7 @@ import com.github.marsor707.dto.OrderDTO;
 import com.github.marsor707.enums.ResultEnum;
 import com.github.marsor707.exception.SellException;
 import com.github.marsor707.form.OrderForm;
+import com.github.marsor707.service.BuyerService;
 import com.github.marsor707.service.OrderService;
 import com.github.marsor707.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,9 @@ public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
 
     //创建订单
     @PostMapping("/create")
@@ -77,8 +81,7 @@ public class BuyerOrderController {
     @GetMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
-        // TODO: 2017/12/5 不安全的做法
-        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
         return ResultVOUtil.success(orderDTO);
     }
 
@@ -86,10 +89,7 @@ public class BuyerOrderController {
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderId") String orderId) {
-        // TODO: 2017/12/5 不安全的做法
-        OrderDTO orderDTO = orderService.findOne(orderId);
-        orderService.cancel(orderDTO);
-
+        buyerService.cancelOrder(openid, orderId);
         return ResultVOUtil.success();
     }
 }
