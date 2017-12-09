@@ -1,6 +1,7 @@
 package com.github.marsor707.service;
 
 import com.github.marsor707.dto.OrderDTO;
+import com.lly835.bestpay.model.PayResponse;
 
 /**
  * Author: Marsor
@@ -9,5 +10,5 @@ import com.github.marsor707.dto.OrderDTO;
  */
 public interface PayService {
 
-    void create(OrderDTO orderDTO);
+    PayResponse create(OrderDTO orderDTO);
 }
