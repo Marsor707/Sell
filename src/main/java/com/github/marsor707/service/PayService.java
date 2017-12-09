@@ -2,6 +2,7 @@ package com.github.marsor707.service;
 
 import com.github.marsor707.dto.OrderDTO;
 import com.lly835.bestpay.model.PayResponse;
+import com.lly835.bestpay.model.RefundResponse;
 
 /**
  * Author: Marsor
@@ -13,4 +14,6 @@ public interface PayService {
     PayResponse create(OrderDTO orderDTO);
 
     PayResponse notify(String notifyData);
+
+    RefundResponse refund(OrderDTO orderDTO);
 }

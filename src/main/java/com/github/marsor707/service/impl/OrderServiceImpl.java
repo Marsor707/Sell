@@ -13,6 +13,7 @@ import com.github.marsor707.exception.SellException;
 import com.github.marsor707.repository.OrderDetailRepository;
 import com.github.marsor707.repository.OrderMasterRepository;
 import com.github.marsor707.service.OrderService;
+import com.github.marsor707.service.PayService;
 import com.github.marsor707.service.ProductService;
 import com.github.marsor707.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     @Transactional
@@ -151,7 +155,7 @@ public class OrderServiceImpl implements OrderService {
 
         //如果已支付，需要退款
         if (orderDTO.getOrderStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
-            // TODO: 2017/12/4
+            payService.refund(orderDTO);
         }
 
         return orderDTO;
