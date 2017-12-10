@@ -1,8 +1,11 @@
 package com.github.marsor707.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.marsor707.dataobject.OrderDetail;
+import com.github.marsor707.enums.OrderStatusEnum;
+import com.github.marsor707.enums.PayStatusEnum;
+import com.github.marsor707.utils.EnumUtil;
 import com.github.marsor707.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
@@ -41,4 +44,14 @@ public class OrderDTO {
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
 }

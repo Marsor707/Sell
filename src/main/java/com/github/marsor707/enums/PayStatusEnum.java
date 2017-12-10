@@ -8,7 +8,7 @@ import lombok.Getter;
  * Email: 369135912@qq.com
  */
 @Getter
-public enum PayStatusEnum {
+public enum PayStatusEnum implements CodeEnum {
     WAIT(0, "等待支付"),
     SUCCESS(1, "支付成功");
 
