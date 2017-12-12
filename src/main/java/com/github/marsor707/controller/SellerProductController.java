@@ -1,6 +1,7 @@
 package com.github.marsor707.controller;
 
 import com.github.marsor707.dataobject.ProductInfo;
+import com.github.marsor707.exception.SellException;
 import com.github.marsor707.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,49 @@ public class SellerProductController {
         map.put("currentPage", page);
         map.put("size", size);
         return new ModelAndView("product/list", map);
+    }
+
+    /**
+     * 商品上架
+     *
+     * @param productId
+     * @param map
+     * @return
+     */
+    @GetMapping("/on_sale")
+    public ModelAndView onSale(@RequestParam("productId") String productId,
+                               Map<String, Object> map) {
+        try {
+            productService.onSale(productId);
+        } catch (SellException e) {
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/product/list");
+            return new ModelAndView("/common/error", map);
+        }
+
+        map.put("url", "/sell/seller/product/list");
+        return new ModelAndView("common/success", map);
+    }
+
+    /**
+     * 商品下架
+     *
+     * @param productId
+     * @param map
+     * @return
+     */
+    @GetMapping("/off_sale")
+    public ModelAndView offSale(@RequestParam("productId") String productId,
+                                Map<String, Object> map) {
+        try {
+            productService.offSale(productId);
+        } catch (SellException e) {
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/product/list");
+            return new ModelAndView("/common/error", map);
+        }
+
+        map.put("url", "/sell/seller/product/list");
+        return new ModelAndView("common/success", map);
     }
 }
