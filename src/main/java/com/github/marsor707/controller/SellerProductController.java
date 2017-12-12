@@ -1,18 +1,22 @@
 package com.github.marsor707.controller;
 
+import com.github.marsor707.dataobject.ProductCategory;
 import com.github.marsor707.dataobject.ProductInfo;
 import com.github.marsor707.exception.SellException;
+import com.github.marsor707.service.CategoryService;
 import com.github.marsor707.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +31,9 @@ public class SellerProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     /**
      * 商品列表
@@ -90,5 +97,20 @@ public class SellerProductController {
 
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("common/success", map);
+    }
+
+    @GetMapping("/index")
+    public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
+                              Map<String, Object> map) {
+        if (!StringUtils.isEmpty(productId)) {
+            ProductInfo productInfo = productService.findOne(productId);
+            map.put("productInfo", productInfo);
+        }
+
+        //查询所有类目
+        List<ProductCategory> categoryList=categoryService.findAll();
+        map.put("categoryList",categoryList);
+
+        return new ModelAndView("product/index", map);
     }
 }
