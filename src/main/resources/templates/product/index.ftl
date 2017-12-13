@@ -13,7 +13,7 @@
                     <form role="form" method="post" action="/sell/seller/product/save">
                         <div class="form-group">
                             <label>名称</label>
-                            <input name="productId" type="text" class="form-control"
+                            <input name="productName" type="text" class="form-control"
                                    value="${(productInfo.productName)!''}"/>
                         </div>
                         <div class="form-group">
