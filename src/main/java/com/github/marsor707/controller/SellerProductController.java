@@ -143,7 +143,7 @@ public class SellerProductController {
             if (!StringUtils.isEmpty(form.getProductId())) {
                 productInfo = productService.findOne(form.getProductId());
             } else {
-                productInfo.setProductId(KeyUtil.genUniqueKey());
+                form.setProductId(KeyUtil.genUniqueKey());
             }
             BeanUtils.copyProperties(form, productInfo);
             productService.save(productInfo);
