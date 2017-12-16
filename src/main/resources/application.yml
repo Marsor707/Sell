@@ -9,8 +9,8 @@ spring:
   jackson:
     default-property-inclusion: non_null
   redis:
-    host:
-    port:
+    host: 127.0.0.1
+    port: 6379
     password:
 server:
   context-path: /sell
@@ -26,6 +26,6 @@ wechat:
   notifyUrl:
 
 projectUrl:
-  wechatMpAuthorize:
-  wechatOpenAuthorize:
-  sell:
+  wechatMpAuthorize: http://127.0.0.1
+  wechatOpenAuthorize: http://127.0.0.1
+  sell: http://127.0.0.1
