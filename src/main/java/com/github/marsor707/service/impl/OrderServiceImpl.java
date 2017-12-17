@@ -15,6 +15,7 @@ import com.github.marsor707.repository.OrderMasterRepository;
 import com.github.marsor707.service.OrderService;
 import com.github.marsor707.service.PayService;
 import com.github.marsor707.service.ProductService;
+import com.github.marsor707.service.PushMessageService;
 import com.github.marsor707.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -51,6 +52,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PayService payService;
+
+    @Autowired
+    private PushMessageService pushMessageService;
 
     @Override
     @Transactional
@@ -179,6 +183,9 @@ public class OrderServiceImpl implements OrderService {
             log.error("【完结订单】更新失败，orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+
+        //推送微信模版消息
+        pushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }

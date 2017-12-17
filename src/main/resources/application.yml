@@ -24,6 +24,8 @@ wechat:
   mchKey:
   keyPath:
   notifyUrl:
+  templateId:
+    orderStatus:
 
 projectUrl:
   wechatMpAuthorize: http://127.0.0.1
