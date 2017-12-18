@@ -12,10 +12,7 @@ import com.github.marsor707.enums.ResultEnum;
 import com.github.marsor707.exception.SellException;
 import com.github.marsor707.repository.OrderDetailRepository;
 import com.github.marsor707.repository.OrderMasterRepository;
-import com.github.marsor707.service.OrderService;
-import com.github.marsor707.service.PayService;
-import com.github.marsor707.service.ProductService;
-import com.github.marsor707.service.PushMessageService;
+import com.github.marsor707.service.*;
 import com.github.marsor707.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -56,6 +53,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private PushMessageService pushMessageService;
 
+    @Autowired
+    private WebSocket webSocket;
+
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -95,6 +95,9 @@ public class OrderServiceImpl implements OrderService {
                 .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+
+        //发送websocket消息
+        webSocket.sendMessage(orderDTO.getOrderId());
 
         return orderDTO;
     }
