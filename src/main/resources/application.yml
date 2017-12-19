@@ -31,3 +31,5 @@ projectUrl:
   wechatMpAuthorize: http://127.0.0.1
   wechatOpenAuthorize: http://127.0.0.1
   sell: http://127.0.0.1
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
