@@ -1,10 +1,14 @@
 package com.github.marsor707.handler;
 
+import com.github.marsor707.VO.ResultVO;
 import com.github.marsor707.config.ProjectUrlConfig;
+import com.github.marsor707.exception.SellException;
 import com.github.marsor707.exception.SellerAuthorizeException;
+import com.github.marsor707.utils.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -27,5 +31,11 @@ public class SellExceptionHandler {
                 .concat("?returnUrl=")
                 .concat(projectUrlConfig.getSell())
                 .concat("sell/seller/login"));
+    }
+
+    @ExceptionHandler(value = SellException.class)
+    @ResponseBody
+    public ResultVO handlerSellException(SellException e) {
+        return ResultVOUtil.error(e.getCode(), e.getMessage());
     }
 }

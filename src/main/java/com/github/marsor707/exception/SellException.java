@@ -1,12 +1,14 @@
 package com.github.marsor707.exception;
 
 import com.github.marsor707.enums.ResultEnum;
+import lombok.Getter;
 
 /**
  * Author: Marsor
  * Github: https://github.com/Marsor707
  * Email: 369135912@qq.com
  */
+@Getter
 public class SellException extends RuntimeException {
 
     private Integer code;
